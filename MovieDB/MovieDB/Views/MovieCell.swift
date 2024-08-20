@@ -12,12 +12,29 @@ struct MovieCell: View {
     var movie: MovieViewModel
     var body: some View {
         HStack {
-            AsyncImage(url: movie.thumbnailUrl)
-                .frame(width: 50, height: 50)
-                .cornerRadius(8)
-            Text(movie.title)
+            AsyncImage(url: movie.thumbnailUrl) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image.resizable().aspectRatio(contentMode: .fill)
+                case .failure:
+                    Image("placeholder")
+                @unknown default:
+                    EmptyView()
+                }
+            }
+            .frame(width: 50, height: 50)
+            .cornerRadius(8)
+            
             Spacer()
-            Text(movie.releaseDate)
+            
+            VStack {
+                Text(movie.title)
+                Spacer()
+                Text(movie.releaseDate)
+                    .font(.footnote)
+            }
         }
         .padding([.top, .bottom], 8)
     }
@@ -25,4 +42,6 @@ struct MovieCell: View {
 
 #Preview {
     MovieCell(movie: MovieViewModel(movie: Movie.mockMovie))
+        .frame(width: 50, height: 50)
+
 }

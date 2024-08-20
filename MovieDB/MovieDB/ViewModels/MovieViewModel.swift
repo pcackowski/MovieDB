@@ -14,7 +14,19 @@ struct MovieViewModel {
     }
     
     var thumbnailUrl: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(movie.backdropPath ?? "")")!
+    }
+
+    var posterURL: URL {
         return URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")!
+    }
+
+    //TODA check N/A
+    var voteAverage: String {
+        if let movieVote = movie.voteAverage {
+            return String(movieVote)
+        }
+        return "N/A"
     }
     
     var title: String {
@@ -23,5 +35,9 @@ struct MovieViewModel {
     
     var releaseDate: String {
         return movie.releaseDate ?? ""
+    }
+    
+    var overview: String {
+        return movie.overview ?? "N/A"
     }
 }

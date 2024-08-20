@@ -28,8 +28,10 @@ struct MoviesListView: View {
             VStack(alignment: .leading) {
                 
                 List(moviesListViewModel.movies, id: \.id) { movie in
-                    MovieCell(movie: MovieViewModel(movie: movie))
-                        .frame(height: 50)
+                    NavigationLink(destination: MovieDetailView(movie: MovieViewModel(movie: movie))) {
+                        MovieCell(movie: MovieViewModel(movie: movie))
+                            .frame(height: 50)
+                    }
                 }
                 .listStyle(GroupedListStyle())
             }
@@ -37,6 +39,7 @@ struct MoviesListView: View {
             
         }
     }
+    
     var body: some View {
         content
             .alert(isPresented: $moviesListViewModel.showAlert) {
@@ -50,13 +53,6 @@ struct MoviesListView: View {
             .onAppear {
                 moviesListViewModel.fetchMovies()
             }
-    
-    }
-    
-    var moviesList: some View {
-        List {
-            
-        }
     }
 }
 

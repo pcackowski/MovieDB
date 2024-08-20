@@ -24,6 +24,7 @@
 		0162FE012C74D7AA002A42E3 /* MainNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE002C74D7AA002A42E3 /* MainNavigationViewModel.swift */; };
 		0162FE032C74E2AC002A42E3 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE022C74E2AC002A42E3 /* MovieViewModel.swift */; };
 		0162FE052C74E757002A42E3 /* SearchFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE042C74E757002A42E3 /* SearchFieldView.swift */; };
+		0162FE072C74EA54002A42E3 /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE062C74EA54002A42E3 /* MovieDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		0162FE002C74D7AA002A42E3 /* MainNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewModel.swift; sourceTree = "<group>"; };
 		0162FE022C74E2AC002A42E3 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		0162FE042C74E757002A42E3 /* SearchFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldView.swift; sourceTree = "<group>"; };
+		0162FE062C74EA54002A42E3 /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 				0162FDFC2C748D19002A42E3 /* MovieCell.swift */,
 				0162FDFE2C74D70B002A42E3 /* MainContentView.swift */,
 				0162FE042C74E757002A42E3 /* SearchFieldView.swift */,
+				0162FE062C74EA54002A42E3 /* MovieDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				0162FDFD2C748D19002A42E3 /* MovieCell.swift in Sources */,
 				0162FE012C74D7AA002A42E3 /* MainNavigationViewModel.swift in Sources */,
 				0162FDEF2C73E22B002A42E3 /* MoviesDBRepository.swift in Sources */,
+				0162FE072C74EA54002A42E3 /* MovieDetailsView.swift in Sources */,
 				0162FE052C74E757002A42E3 /* SearchFieldView.swift in Sources */,
 				0162FDF82C73E8F3002A42E3 /* MoviesListView.swift in Sources */,
 				0162FDFF2C74D70B002A42E3 /* MainContentView.swift in Sources */,

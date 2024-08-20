@@ -48,6 +48,17 @@ class MovieListViewModel: ObservableObject {
     }
     
     func setupAutocomplete() {
+        
+        $query
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .combineLatest($query)
+            .sink { [weak self] previousQuery, currentQuery in
+                if !previousQuery.isEmpty && currentQuery.isEmpty {
+                    self?.fetchMovies()
+                }
+            }
+            .store(in: &cancellables)
+        
         $query
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .removeDuplicates()
