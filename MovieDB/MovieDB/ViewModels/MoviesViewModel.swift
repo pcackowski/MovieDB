@@ -16,11 +16,12 @@ enum MoviesListState: Equatable {
     case error(MoviesDBError)
 }
 
-class MoviesViewModel: ObservableObject {
+class MovieListViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var showAlert: Bool = false
     @Published var moviesListState: MoviesListState = .loading(MoviesListState.loadingMesage)
-
+    @Published var query: String = ""
+    
     private let repository: MoviesDBRepository
     
     init(repository: MoviesDBRepository = MoviesDBRepositoryImpl()) {
@@ -38,8 +39,8 @@ class MoviesViewModel: ObservableObject {
                     print(error)
                 }
             } receiveValue: { [weak self] response in
-                self.self?.moviesListState = .loaded
-                self?.movies = response.results
+                self?.moviesListState = .loaded
+                self?.movies = response.results ?? []
             }
             .store(in: &cancellables)
     }

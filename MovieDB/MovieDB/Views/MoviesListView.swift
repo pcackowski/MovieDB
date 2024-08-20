@@ -9,8 +9,7 @@ import SwiftUI
 
 struct MoviesListView: View {
     
-    @ObservedObject var moviesListViewModel: MoviesViewModel
-
+    @ObservedObject var moviesListViewModel: MovieListViewModel
     
     @ViewBuilder private var content: some View {
         switch moviesListViewModel.moviesListState {
@@ -29,16 +28,11 @@ struct MoviesListView: View {
             VStack(alignment: .leading) {
                 
                 List(moviesListViewModel.movies, id: \.id) { movie in
-                    HStack {
-                        Text(movie.title)
-                        Spacer()
-                        Text(movie.releaseDate)
-                    }
-                    .padding([.top, .bottom], 8)
+                    MovieCell(movie: MovieViewModel(movie: movie))
+                        .frame(height: 50)
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(GroupedListStyle())
             }
-            .edgesIgnoringSafeArea(.all)
             .background(Color.white)
             
         }
@@ -52,6 +46,7 @@ struct MoviesListView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
+            .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
             .onAppear {
                 moviesListViewModel.fetchMovies()
             }
@@ -66,5 +61,5 @@ struct MoviesListView: View {
 }
 
 #Preview {
-    MoviesListView(moviesListViewModel: MoviesViewModel())
+    MoviesListView(moviesListViewModel: MovieListViewModel())
 }

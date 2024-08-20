@@ -23,6 +23,7 @@ extension URLSession: URLCustomSessionProtocol {
 
 protocol MoviesDBRepository {
     func fetchMovies(page: Int) -> AnyPublisher<MainResponse, Error>
+    func searchMovies(query: String) -> AnyPublisher<MainResponse, Error>
 //    func fetchMovieDetails(movieId: Int) async throws -> Movie
 }
 
@@ -36,6 +37,44 @@ struct MoviesDBRepositoryImpl: MoviesDBRepository {
 
     func fetchMovies(page: Int) -> AnyPublisher<MainResponse, Error> {
         return buildFetchMoviesRequest(with: page)
+            .flatMap { request in
+                return session.customDataTaskPublisher(for: request)
+                    .validateAndMapErrors()
+            }
+            .decode(type: MainResponse.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+    
+    private func buildSearchMoviesRequest(for query: String) -> AnyPublisher<URLRequest, MoviesDBError> {
+        guard var components = URLComponents(string: "https://api.themoviedb.org/3/search/movie") else {
+            return Fail(error: MoviesDBError.invalidURL).eraseToAnyPublisher()
+        }
+        
+        let queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "include_adult", value: "false"),
+            URLQueryItem(name: "language", value: "en-US"),
+            URLQueryItem(name: "query", value: query),
+            URLQueryItem(name: "page", value: "1")
+        ]
+        components.queryItems = (components.queryItems ?? []) + queryItems
+        
+        guard let url = components.url else {
+            return Fail(error: MoviesDBError.invalidURL).eraseToAnyPublisher()
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 10
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("Bearer \(Self.apiKey)", forHTTPHeaderField: "Authorization")
+        
+        return Just(request)
+            .setFailureType(to: MoviesDBError.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func searchMovies(query: String) -> AnyPublisher<MainResponse, Error> {
+        return buildSearchMoviesRequest(for: query)
             .flatMap { request in
                 return session.customDataTaskPublisher(for: request)
                     .validateAndMapErrors()
@@ -69,6 +108,7 @@ struct MoviesDBRepositoryImpl: MoviesDBRepository {
         request.allHTTPHeaderFields = [
             "accept": "application/json",
             "Authorization": "Bearer \(Self.apiKey)"
+
         ]
         
         return Just(request)
@@ -106,7 +146,7 @@ enum MoviesDBError: Error, Equatable{
         case .serverError:
             return "We encounterd server issue. Try again"
         case .generalError:
-            return "Oops, Something wnet wrong. Try again."
+            return "Oops, Something went wrong. Try again."
         default:
             return ""
         }
