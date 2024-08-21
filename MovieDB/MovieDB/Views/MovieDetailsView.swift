@@ -7,52 +7,67 @@
 
 import SwiftUI
 
-struct MovieDetailView: View {
+struct MovieImageView: View {
     let movie: MovieViewModel
+    let contentMode: ContentMode
+    
+    var body: some View {
+        AsyncImage(url: movie.posterURL) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let image):
+                image.resizable().aspectRatio(contentMode: contentMode)
+            case .failure:
+                Image("placeholderMovie")
+            @unknown default:
+                EmptyView()
+            }
+        }
+    }
+}
+struct MovieDetailView: View {
+    @StateObject var movie: MovieViewModel
+    
+    var movieImage: some View {
+        MovieImageView(movie: movie, contentMode: .fit)
+            .frame(height: 300)
+            .cornerRadius(10)
+            .padding()
+    }
     
     var body: some View {
         VStack() {
-            VStack(alignment: .leading, spacing: 10) {
-                AsyncImage(url: movie.posterURL) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image.resizable().aspectRatio(contentMode: .fit)
-                    case .failure:
-                        Image("placeholder")
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-                .frame(height: 300)
-                .cornerRadius(10)
-                .padding()
-                
-            }
-            
+            movieImage
+
             VStack(alignment: .leading, spacing: 10) {
                 Text(movie.title)
-                    .font(.title)
+                    .font(.largeTitle)
                     .fontWeight(.bold)
+                                
+                Text("Rating: \(movie.voteAverage)")
+                    .font(.title3)
                 
                 Text("Release Date: \(movie.releaseDate)")
                     .font(.subheadline)
-                
-                Text("Rating: \(movie.voteAverage)")
-                    .font(.subheadline)
 
                 Text(movie.overview)
-                    .font(.body)
+                    .font(.caption2)
             }
             .frame(maxWidth: .infinity, alignment: .leading) 
-            .background(.gray)
             .padding(.horizontal)
             Spacer()
-
         }
         .navigationTitle("Movie details")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(trailing: starView)
+    }
+    
+    var starView: some View {
+        StarView(filled: movie.isFavourite)
+            .onTapGesture {
+                movie.favButtonTapped()
+            }
     }
 }
 

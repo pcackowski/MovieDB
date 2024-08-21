@@ -27,6 +27,7 @@
 		0162FE092C74F7B8002A42E3 /* MoviesLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE082C74F7B8002A42E3 /* MoviesLocalRepository.swift */; };
 		0162FE0D2C760B40002A42E3 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE0C2C760B40002A42E3 /* StarView.swift */; };
 		0162FE0F2C767549002A42E3 /* EmptyResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */; };
+		0162FE122C767CB2002A42E3 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE112C767CB2002A42E3 /* DateFormatterManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		0162FE082C74F7B8002A42E3 /* MoviesLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLocalRepository.swift; sourceTree = "<group>"; };
 		0162FE0C2C760B40002A42E3 /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResultsView.swift; sourceTree = "<group>"; };
+		0162FE112C767CB2002A42E3 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 		0162FDC22C73DE4B002A42E3 /* MovieDB */ = {
 			isa = PBXGroup;
 			children = (
+				0162FE102C767CA0002A42E3 /* Utils */,
 				0162FDF92C73EA38002A42E3 /* Views */,
 				0162FDF62C73E8CC002A42E3 /* ViewModels */,
 				0162FDF32C73E7F0002A42E3 /* Model */,
@@ -198,6 +201,14 @@
 				0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0162FE102C767CA0002A42E3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0162FE112C767CB2002A42E3 /* DateFormatterManager.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +343,7 @@
 			files = (
 				0162FDF12C73E34D002A42E3 /* MovieModel.swift in Sources */,
 				0162FDF52C73E895002A42E3 /* MovieListViewModel.swift in Sources */,
+				0162FE122C767CB2002A42E3 /* DateFormatterManager.swift in Sources */,
 				0162FDFD2C748D19002A42E3 /* MovieCell.swift in Sources */,
 				0162FE0D2C760B40002A42E3 /* StarView.swift in Sources */,
 				0162FE012C74D7AA002A42E3 /* MainNavigationViewModel.swift in Sources */,

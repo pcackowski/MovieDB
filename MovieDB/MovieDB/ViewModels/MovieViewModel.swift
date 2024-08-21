@@ -23,6 +23,17 @@ class MovieViewModel: ObservableObject {
          localRepository: MoviesLocalRepositoryProtocol = MoviesLocalRepository()) {
         self.movie = movie
         self.localRepository = localRepository
+        Task {
+            await self.checkFavouriteStatus()
+        }
+        
+    }
+    
+    private func checkFavouriteStatus() async {
+        let currentFavouriteStatus = await self.isFavourite()
+        DispatchQueue.main.async {
+            self.isFavourite = currentFavouriteStatus
+        }
     }
     
     var thumbnailUrl: URL? {
@@ -35,7 +46,7 @@ class MovieViewModel: ObservableObject {
     
     var voteAverage: String {
         if let movieVote = movie.voteAverage {
-            return String(movieVote)
+            return String((movieVote * 10).rounded(.toNearestOrAwayFromZero) / 10)
         }
         return MovieConsts.notApplicable
     }
@@ -45,15 +56,18 @@ class MovieViewModel: ObservableObject {
     }
     
     var releaseDate: String {
-        return movie.releaseDate ?? ""
+        guard let dateString = movie.releaseDate, let date = DateFormatterManager.shared.releaseDateFormatter.date(from: dateString) else {
+            return MovieConsts.notApplicable
+        }
+        return DateFormatterManager.shared.displayDateFormatter.string(from: date)
     }
-    
     var overview: String {
         return movie.overview ?? MovieConsts.notApplicable
         
     }
     
     func favButtonTapped() {
+        print("Fav button tapped")
         Task {
             await toggleFavourite()
         }
