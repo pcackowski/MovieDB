@@ -26,6 +26,7 @@
 		0162FE072C74EA54002A42E3 /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE062C74EA54002A42E3 /* MovieDetailsView.swift */; };
 		0162FE092C74F7B8002A42E3 /* MoviesLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE082C74F7B8002A42E3 /* MoviesLocalRepository.swift */; };
 		0162FE0D2C760B40002A42E3 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE0C2C760B40002A42E3 /* StarView.swift */; };
+		0162FE0F2C767549002A42E3 /* EmptyResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		0162FE062C74EA54002A42E3 /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
 		0162FE082C74F7B8002A42E3 /* MoviesLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLocalRepository.swift; sourceTree = "<group>"; };
 		0162FE0C2C760B40002A42E3 /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResultsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				0162FDFE2C74D70B002A42E3 /* MainContentView.swift */,
 				0162FE062C74EA54002A42E3 /* MovieDetailsView.swift */,
 				0162FE0C2C760B40002A42E3 /* StarView.swift */,
+				0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				0162FDC62C73DE4B002A42E3 /* ContentView.swift in Sources */,
 				0162FE032C74E2AC002A42E3 /* MovieViewModel.swift in Sources */,
 				0162FDFB2C73EA46002A42E3 /* LoadingView.swift in Sources */,
+				0162FE0F2C767549002A42E3 /* EmptyResultsView.swift in Sources */,
 				0162FDC42C73DE4B002A42E3 /* MovieDBApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
