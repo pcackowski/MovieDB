@@ -43,19 +43,50 @@ struct MoviesListView: View {
     }
     
     var moviesList: some View {
-        List(moviesListViewModel.movies, id: \.id) { movie in
-            ZStack(alignment: .leading) {
-                MovieCell(movie: MovieViewModel(movie: movie))
-                    .frame(height: 50)
-                NavigationLink(destination: MovieDetailView(movie: MovieViewModel(movie: movie))) {
-                    EmptyView()
+        VStack {
+            
+            List(moviesListViewModel.movies, id: \.id) { movie in
+                ZStack(alignment: .leading) {
+                    MovieCell(movie: MovieViewModel(movie: movie))
+                        .frame(height: 50)
+                    NavigationLink(destination: MovieDetailView(movie: MovieViewModel(movie: movie))) {
+                        EmptyView()
+                    }
+                    .opacity(0.0)
                 }
-                .opacity(0.0)
+                .listRowSeparator(.hidden)
             }
-            .listRowSeparator(.hidden)
-        }
-        .listStyle(DefaultListStyle())
+            .listStyle(DefaultListStyle())
 
+            Spacer()
+            if moviesListViewModel.isAutocompleteMode {
+                EmptyView()
+            } else {
+                pagesView
+            }
+        }
+
+    }
+    
+    var pagesView: some View {
+        HStack {
+            Button(action: {
+                moviesListViewModel.loadPreviousPage()
+            }) {
+                Image(systemName: "arrow.left")
+            }
+            .disabled(moviesListViewModel.currentPage <= 1)
+
+            Text("Page \(moviesListViewModel.currentPage) of \(moviesListViewModel.totalPages)")
+                .font(.caption)
+
+            Button(action: {
+                moviesListViewModel.loadNextPage()
+            }) {
+                Image(systemName: "arrow.right")
+            }
+            .disabled(moviesListViewModel.currentPage >= moviesListViewModel.totalPages)
+        }
     }
         
     var body: some View {
@@ -67,10 +98,7 @@ struct MoviesListView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
-            .onAppear {
-                moviesListViewModel.fetchMovies()
-            }
+            .edgesIgnoringSafeArea([.leading, .trailing])
     }
 }
 

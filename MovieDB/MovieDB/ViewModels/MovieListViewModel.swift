@@ -19,13 +19,16 @@ enum MoviesListState: Equatable {
 class MovieListViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var showAlert: Bool = false
-    @Published var moviesListState: MoviesListState = .loading(MoviesListState.loadingMesage)
-    @Published var query: String = "" {
+    @Published var isAutocompleteMode: Bool = false
+    @Published var moviesListState: MoviesListState = .loading(MoviesListState.loadingMesage) {
         didSet {
-            print("Viewmodel Query updated to: \(query)")
+            print("MoviesListState: \(moviesListState)")
         }
     }
-    
+    @Published var query: String = ""
+    @Published var currentPage: Int = 1
+    @Published var totalPages: Int = 0
+
     private let repository: MoviesDBRepository
     private var cancellables: Set<AnyCancellable> = []
     private var favorites: [Movie] = []
@@ -33,21 +36,36 @@ class MovieListViewModel: ObservableObject {
     init(repository: MoviesDBRepository = MoviesDBRepositoryImpl()) {
         self.repository = repository
         self.setupAutocomplete()
+        self.fetchMovies()
+    }
+    
+    func loadPreviousPage() {
+        currentPage -= 1
+        fetchMovies()
+    }
+    
+    func loadNextPage() {
+        currentPage += 1
+        fetchMovies()
     }
     
     func fetchMovies() {
-        repository.fetchMovies(page: 1)
+        self.moviesListState = .loading(MoviesListState.loadingMesage)
+        self.isAutocompleteMode = false
+        repository.fetchMovies(page: currentPage)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
                     print(error)
+                    self?.moviesListState = .error(error)
                 }
             } receiveValue: { [weak self] response in
                 self?.moviesListState = .loaded
                 self?.movies = response.results ?? []
+                self?.totalPages = response.totalPages ?? 0
             }
             .store(in: &cancellables)
     }
@@ -68,8 +86,9 @@ class MovieListViewModel: ObservableObject {
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .removeDuplicates()
             .filter { !$0.isEmpty }
-            .flatMap { [weak self, repository] query -> AnyPublisher<MainResponse, Error> in
+            .flatMap { [weak self, repository] query -> AnyPublisher<MainResponse, MoviesDBError> in
                 self?.moviesListState = .loading("Searching for \(query)...")
+                self?.isAutocompleteMode = true
                 print("Searching for \(query)...")
                 return repository.searchMovies(query: query)
             }
@@ -79,11 +98,7 @@ class MovieListViewModel: ObservableObject {
                 case .finished:
                     break
                 case .failure(let error):
-                    if let error = error as? MoviesDBError {
-                        self?.moviesListState = .error(error)
-                    } else {
-                        self?.moviesListState = .error(MoviesDBError.generalError)
-                    }
+                    self?.moviesListState = .error(error)
                     self?.showAlert = true
                 }
             } receiveValue: { [weak self] response in

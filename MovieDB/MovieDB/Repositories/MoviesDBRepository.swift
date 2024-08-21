@@ -22,9 +22,8 @@ extension URLSession: URLCustomSessionProtocol {
 }
 
 protocol MoviesDBRepository {
-    func fetchMovies(page: Int) -> AnyPublisher<MainResponse, Error>
-    func searchMovies(query: String) -> AnyPublisher<MainResponse, Error>
-//    func fetchMovieDetails(movieId: Int) async throws -> Movie
+    func fetchMovies(page: Int) -> AnyPublisher<MainResponse, MoviesDBError>
+    func searchMovies(query: String) -> AnyPublisher<MainResponse, MoviesDBError>
 }
 
 struct MoviesDBRepositoryImpl: MoviesDBRepository {
@@ -35,13 +34,16 @@ struct MoviesDBRepositoryImpl: MoviesDBRepository {
         self.session = session
     }
 
-    func fetchMovies(page: Int) -> AnyPublisher<MainResponse, Error> {
+    func fetchMovies(page: Int) -> AnyPublisher<MainResponse, MoviesDBError> {
         return buildFetchMoviesRequest(with: page)
             .flatMap { request in
                 return session.customDataTaskPublisher(for: request)
                     .validateAndMapErrors()
             }
             .decode(type: MainResponse.self, decoder: JSONDecoder())
+            .mapError { error in
+                (error as? MoviesDBError) ?? MoviesDBError.parsingError
+            }
             .eraseToAnyPublisher()
     }
     
@@ -54,7 +56,6 @@ struct MoviesDBRepositoryImpl: MoviesDBRepository {
             URLQueryItem(name: "include_adult", value: "false"),
             URLQueryItem(name: "language", value: "en-US"),
             URLQueryItem(name: "query", value: query),
-            URLQueryItem(name: "page", value: "1")
         ]
         components.queryItems = (components.queryItems ?? []) + queryItems
         
@@ -73,13 +74,16 @@ struct MoviesDBRepositoryImpl: MoviesDBRepository {
             .eraseToAnyPublisher()
     }
     
-    func searchMovies(query: String) -> AnyPublisher<MainResponse, Error> {
+    func searchMovies(query: String) -> AnyPublisher<MainResponse, MoviesDBError> {
         return buildSearchMoviesRequest(for: query)
             .flatMap { request in
                 return session.customDataTaskPublisher(for: request)
                     .validateAndMapErrors()
             }
             .decode(type: MainResponse.self, decoder: JSONDecoder())
+            .mapError { error in
+                (error as? MoviesDBError) ?? MoviesDBError.parsingError
+            }
             .eraseToAnyPublisher()
     }
 
@@ -94,7 +98,7 @@ struct MoviesDBRepositoryImpl: MoviesDBRepository {
         
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "language", value: "en-US"),
-            URLQueryItem(name: "page", value: "1")
+            URLQueryItem(name: "page", value: "\(page)")
         ]
         components.queryItems = components.queryItems.map { $0 + queryItems } ?? queryItems
         
@@ -120,6 +124,7 @@ struct MoviesDBRepositoryImpl: MoviesDBRepository {
 enum MoviesDBError: Error, Equatable{
     case invalidURL
     case invalidResponse
+    case parsingError
     case clientError(statusCode: Int)
     case serverError(statusCode: Int)
     case generalError
