@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MovieDBApp: App {
+    var mainNavigationViewModel = MainNavigationViewModel()
+
     var body: some Scene {
         WindowGroup {
-            MainContentView()
+            MainContentView(mainNavigationViewModel: mainNavigationViewModel)
         }
     }
 }

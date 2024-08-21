@@ -20,10 +20,15 @@ class MovieListViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var showAlert: Bool = false
     @Published var moviesListState: MoviesListState = .loading(MoviesListState.loadingMesage)
-    @Published var query: String = ""
+    @Published var query: String = "" {
+        didSet {
+            print("Viewmodel Query updated to: \(query)")
+        }
+    }
     
     private let repository: MoviesDBRepository
     private var cancellables: Set<AnyCancellable> = []
+    private var favorites: [Movie] = []
     
     init(repository: MoviesDBRepository = MoviesDBRepositoryImpl()) {
         self.repository = repository
@@ -48,7 +53,7 @@ class MovieListViewModel: ObservableObject {
     }
     
     func setupAutocomplete() {
-        
+        //todo: add debounce, check if necessary
         $query
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .combineLatest($query)
@@ -65,6 +70,7 @@ class MovieListViewModel: ObservableObject {
             .filter { !$0.isEmpty }
             .flatMap { [weak self, repository] query -> AnyPublisher<MainResponse, Error> in
                 self?.moviesListState = .loading("Searching for \(query)...")
+                print("Searching for \(query)...")
                 return repository.searchMovies(query: query)
             }
             .receive(on: DispatchQueue.main)

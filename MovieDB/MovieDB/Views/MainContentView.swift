@@ -8,22 +8,19 @@
 import SwiftUI
 
 struct MainContentView: View {
-    
-    @StateObject var mainNavigationViewModel = MainNavigationViewModel()
-    
+    @StateObject var mainNavigationViewModel: MainNavigationViewModel
+    @State private var query = ""
     var body: some View {
         NavigationView {
             VStack {
-                // Search Text Field
-                SearchFieldView(query: $mainNavigationViewModel.moviesListViewModel.query)
-                
-                // Movies List View
                 MoviesListView(moviesListViewModel: mainNavigationViewModel.getMovieListViewModel())
             }
+            .searchable(text: $mainNavigationViewModel.moviesListViewModel.query)
         }
     }
 }
 
 #Preview {
-    MainContentView()
+    @StateObject var mainNavigationViewModel = MainNavigationViewModel()
+    return MainContentView(mainNavigationViewModel: mainNavigationViewModel)
 }

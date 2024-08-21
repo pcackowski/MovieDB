@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MovieCell: View {
+
+    @StateObject var movie: MovieViewModel
     
-    var movie: MovieViewModel
     var body: some View {
         HStack {
             AsyncImage(url: movie.thumbnailUrl) { phase in
@@ -19,7 +20,7 @@ struct MovieCell: View {
                 case .success(let image):
                     image.resizable().aspectRatio(contentMode: .fill)
                 case .failure:
-                    Image("placeholder")
+                    Image("placeholderMovie")
                 @unknown default:
                     EmptyView()
                 }
@@ -34,6 +35,16 @@ struct MovieCell: View {
                 Spacer()
                 Text(movie.releaseDate)
                     .font(.footnote)
+            }
+            Spacer()
+            StarView(filled: movie.isFavourite)
+                .onTapGesture {
+                    movie.favButtonTapped()
+                }
+        }
+        .onAppear {
+            Task {
+                movie.isFavourite = await movie.isFavourite()
             }
         }
         .padding([.top, .bottom], 8)
