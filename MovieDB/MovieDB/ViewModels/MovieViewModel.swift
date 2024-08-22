@@ -67,7 +67,6 @@ class MovieViewModel: ObservableObject {
     }
     
     func favButtonTapped() {
-        print("Fav button tapped")
         Task {
             await toggleFavourite()
         }

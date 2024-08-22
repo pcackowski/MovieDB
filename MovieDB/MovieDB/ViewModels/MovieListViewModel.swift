@@ -85,7 +85,6 @@ final class MovieListViewModel: ObservableObject {
             .flatMap { [weak self, repository] query -> AnyPublisher<MainResponse, MoviesDBError> in
                 self?.moviesListState = .loading("Searching for \(query)...")
                 self?.isAutocompleteMode = true
-                print("Searching for \(query)...")
                 return repository.searchMovies(query: query)
             }
             .receive(on: DispatchQueue.main)

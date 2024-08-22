@@ -10,7 +10,6 @@ import SwiftUI
 struct MoviesListView: View {
     
     @StateObject var moviesListViewModel: MovieListViewModel
-    @State private var selectedMovie: MovieViewModel?
 
     @ViewBuilder private var content: some View {
         switch moviesListViewModel.moviesListState {
