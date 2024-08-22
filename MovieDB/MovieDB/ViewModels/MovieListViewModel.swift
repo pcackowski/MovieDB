@@ -16,15 +16,11 @@ enum MoviesListState: Equatable {
     case error(MoviesDBError)
 }
 
-class MovieListViewModel: ObservableObject {
+final class MovieListViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var showAlert: Bool = false
     @Published var isAutocompleteMode: Bool = false
-    @Published var moviesListState: MoviesListState = .loading(MoviesListState.loadingMesage) {
-        didSet {
-            print("MoviesListState: \(moviesListState)")
-        }
-    }
+    @Published var moviesListState: MoviesListState = .loading(MoviesListState.loadingMesage) 
     @Published var query: String = ""
     @Published var currentPage: Int = 1
     @Published var totalPages: Int = 0

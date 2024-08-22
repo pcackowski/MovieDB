@@ -19,7 +19,6 @@ extension UserDefaults: UserDefaultsProtocol {}
 protocol MoviesLocalRepositoryProtocol {
     func saveMovie(_ movie: Movie) async throws -> Bool
     func fetchMovies() async throws -> [Movie]
-    func updateMovie(_ movie: Movie) async throws -> Bool
     func deleteMovie(withId id: Int) async throws -> Bool
 }
 
@@ -63,19 +62,7 @@ actor MoviesLocalRepository: MoviesLocalRepositoryProtocol {
             throw MoviesPersistenceError.saveFailed
         }
     }
-    
-    func updateMovie(_ movie: Movie) async throws -> Bool {
-        do {
-            var movies = try await fetchMovies()
-            if let index = movies.firstIndex(where: { $0.id == movie.id }) {
-                movies[index] = movie
-            }
-            return try await saveMovies(movies)
-        } catch {
-            throw MoviesPersistenceError.saveFailed
-        }
-    }
-    
+        
     func deleteMovie(withId id: Int) async throws -> Bool {
         do {
             let movies = try await fetchMovies().filter { $0.id != id }

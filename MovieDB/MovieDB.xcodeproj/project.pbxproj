@@ -27,6 +27,9 @@
 		0162FE0D2C760B40002A42E3 /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE0C2C760B40002A42E3 /* StarView.swift */; };
 		0162FE0F2C767549002A42E3 /* EmptyResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */; };
 		0162FE122C767CB2002A42E3 /* DateFormatterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE112C767CB2002A42E3 /* DateFormatterManager.swift */; };
+		0162FE142C773FEF002A42E3 /* MovieDBRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE132C773FEF002A42E3 /* MovieDBRepositoryTests.swift */; };
+		0162FE162C7744D9002A42E3 /* MovieLocalRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE152C7744D9002A42E3 /* MovieLocalRepositoryTests.swift */; };
+		0162FE182C774987002A42E3 /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE172C774987002A42E3 /* MovieListViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		0162FE0C2C760B40002A42E3 /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		0162FE0E2C767549002A42E3 /* EmptyResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResultsView.swift; sourceTree = "<group>"; };
 		0162FE112C767CB2002A42E3 /* DateFormatterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterManager.swift; sourceTree = "<group>"; };
+		0162FE132C773FEF002A42E3 /* MovieDBRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBRepositoryTests.swift; sourceTree = "<group>"; };
+		0162FE152C7744D9002A42E3 /* MovieLocalRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLocalRepositoryTests.swift; sourceTree = "<group>"; };
+		0162FE172C774987002A42E3 /* MovieListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +153,9 @@
 			isa = PBXGroup;
 			children = (
 				0162FDD52C73DE4C002A42E3 /* MovieDBTests.swift */,
+				0162FE132C773FEF002A42E3 /* MovieDBRepositoryTests.swift */,
+				0162FE152C7744D9002A42E3 /* MovieLocalRepositoryTests.swift */,
+				0162FE172C774987002A42E3 /* MovieListViewModelTests.swift */,
 			);
 			path = MovieDBTests;
 			sourceTree = "<group>";
@@ -360,7 +369,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0162FE142C773FEF002A42E3 /* MovieDBRepositoryTests.swift in Sources */,
+				0162FE162C7744D9002A42E3 /* MovieLocalRepositoryTests.swift in Sources */,
 				0162FDD62C73DE4C002A42E3 /* MovieDBTests.swift in Sources */,
+				0162FE182C774987002A42E3 /* MovieListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
