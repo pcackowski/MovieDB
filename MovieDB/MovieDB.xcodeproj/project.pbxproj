@@ -30,6 +30,7 @@
 		0162FE142C773FEF002A42E3 /* MovieDBRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE132C773FEF002A42E3 /* MovieDBRepositoryTests.swift */; };
 		0162FE162C7744D9002A42E3 /* MovieLocalRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE152C7744D9002A42E3 /* MovieLocalRepositoryTests.swift */; };
 		0162FE182C774987002A42E3 /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0162FE172C774987002A42E3 /* MovieListViewModelTests.swift */; };
+		019C838B2C91E48400D26823 /* MovieViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C838A2C91E48400D26823 /* MovieViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		0162FE132C773FEF002A42E3 /* MovieDBRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBRepositoryTests.swift; sourceTree = "<group>"; };
 		0162FE152C7744D9002A42E3 /* MovieLocalRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLocalRepositoryTests.swift; sourceTree = "<group>"; };
 		0162FE172C774987002A42E3 /* MovieListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModelTests.swift; sourceTree = "<group>"; };
+		019C838A2C91E48400D26823 /* MovieViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				0162FE132C773FEF002A42E3 /* MovieDBRepositoryTests.swift */,
 				0162FE152C7744D9002A42E3 /* MovieLocalRepositoryTests.swift */,
 				0162FE172C774987002A42E3 /* MovieListViewModelTests.swift */,
+				019C838A2C91E48400D26823 /* MovieViewModelTests.swift */,
 			);
 			path = MovieDBTests;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				0162FE142C773FEF002A42E3 /* MovieDBRepositoryTests.swift in Sources */,
 				0162FE162C7744D9002A42E3 /* MovieLocalRepositoryTests.swift in Sources */,
 				0162FDD62C73DE4C002A42E3 /* MovieDBTests.swift in Sources */,
+				019C838B2C91E48400D26823 /* MovieViewModelTests.swift in Sources */,
 				0162FE182C774987002A42E3 /* MovieListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -601,7 +605,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pkobp.MovieDBTests;
@@ -623,7 +627,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pkobp.MovieDBTests;

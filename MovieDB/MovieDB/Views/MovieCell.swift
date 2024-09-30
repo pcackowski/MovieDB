@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieCell: View {
 
-    @StateObject var movie: MovieViewModel
+    @ObservedObject var movie: MovieViewModel
     
     var movieImage: some View {
         AsyncImage(url: movie.thumbnailUrl) { phase in

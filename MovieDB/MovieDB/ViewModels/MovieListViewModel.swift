@@ -71,6 +71,7 @@ final class MovieListViewModel: ObservableObject {
         $query
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .combineLatest($query)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] previousQuery, currentQuery in
                 if !previousQuery.isEmpty && currentQuery.isEmpty {
                     self?.fetchMovies()

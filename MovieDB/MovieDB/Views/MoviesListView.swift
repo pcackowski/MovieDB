@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MoviesListView: View {
     
-    @StateObject var moviesListViewModel: MovieListViewModel
+    @ObservedObject var moviesListViewModel: MovieListViewModel
 
     @ViewBuilder private var content: some View {
         switch moviesListViewModel.moviesListState {
@@ -40,7 +40,7 @@ struct MoviesListView: View {
             moviesList
         }
     }
-    
+        
     var moviesList: some View {
         VStack {
             

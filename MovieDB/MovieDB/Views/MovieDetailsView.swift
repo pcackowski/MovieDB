@@ -27,7 +27,7 @@ struct MovieImageView: View {
     }
 }
 struct MovieDetailView: View {
-    @StateObject var movie: MovieViewModel
+    @ObservedObject var movie: MovieViewModel
     
     var movieImage: some View {
         MovieImageView(movie: movie, contentMode: .fit)
@@ -61,6 +61,9 @@ struct MovieDetailView: View {
         .navigationTitle("Movie details")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: starView)
+        .task {
+            await movie.checkFavouriteStatus()
+        }
     }
     
     var starView: some View {

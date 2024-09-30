@@ -23,13 +23,9 @@ class MovieViewModel: ObservableObject {
          localRepository: MoviesLocalRepositoryProtocol = MoviesLocalRepository()) {
         self.movie = movie
         self.localRepository = localRepository
-        Task {
-            await self.checkFavouriteStatus()
-        }
-        
     }
     
-    private func checkFavouriteStatus() async {
+    func checkFavouriteStatus() async {
         let currentFavouriteStatus = await self.isFavourite()
         DispatchQueue.main.async {
             self.isFavourite = currentFavouriteStatus
